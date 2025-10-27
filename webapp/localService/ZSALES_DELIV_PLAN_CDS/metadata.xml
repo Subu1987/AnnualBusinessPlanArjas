@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="./sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='BW_BID')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZSALES_DELIV_PLAN_CDS" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="Zsales_Deliv_PlanType" sap:semantics="aggregate" sap:label="Actual and Planning Data" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.String" Nullable="false"/>
+                <Property Name="CALMONTH" Type="Edm.String" MaxLength="6" sap:aggregation-role="dimension" sap:display-format="UpperCase"/>
+                <Property Name="MATL_GROUP" Type="Edm.String" MaxLength="9" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:label="Material group" sap:value-list="standard"/>
+                <Property Name="CURR_MONTH_QTY" Type="Edm.Decimal" Precision="17" Scale="3" sap:aggregation-role="measure" sap:unit="SALES_UNIT" sap:filterable="false"/>
+                <Property Name="PREINV_QTY" Type="Edm.Decimal" Precision="17" Scale="3" sap:aggregation-role="measure" sap:unit="SALES_UNIT" sap:filterable="false"/>
+                <Property Name="MONTH_PLAN_QTY" Type="Edm.Decimal" Precision="17" Scale="3" sap:aggregation-role="measure" sap:unit="SALES_UNIT" sap:filterable="false"/>
+                <Property Name="SALES_UNIT" Type="Edm.String" MaxLength="3" sap:aggregation-role="dimension" sap:label="Sales unit" sap:semantics="unit-of-measure"/>
+                <NavigationProperty Name="to_MGRPDESC" Relationship="ZSALES_DELIV_PLAN_CDS.assoc_C763E8B83C9011EC3B18FB8CDBD69C7F" FromRole="FromRole_assoc_C763E8B83C9011EC3B18FB8CDBD69C7F" ToRole="ToRole_assoc_C763E8B83C9011EC3B18FB8CDBD69C7F"/>
+            </EntityType>
+            <EntityType Name="ZVH_MGRP_DECType" sap:label="Value Help for Material Group and description" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="matl_group"/>
+                </Key>
+                <Property Name="matl_group" Type="Edm.String" Nullable="false" MaxLength="9" sap:display-format="UpperCase" sap:label="Material Group"/>
+                <Property Name="txtsh" Type="Edm.String" MaxLength="20" sap:label="Description"/>
+            </EntityType>
+            <Association Name="assoc_C763E8B83C9011EC3B18FB8CDBD69C7F" sap:content-version="1">
+                <End Type="ZSALES_DELIV_PLAN_CDS.Zsales_Deliv_PlanType" Multiplicity="1" Role="FromRole_assoc_C763E8B83C9011EC3B18FB8CDBD69C7F"/>
+                <End Type="ZSALES_DELIV_PLAN_CDS.ZVH_MGRP_DECType" Multiplicity="*" Role="ToRole_assoc_C763E8B83C9011EC3B18FB8CDBD69C7F"/>
+            </Association>
+            <EntityContainer Name="ZSALES_DELIV_PLAN_CDS_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="Zsales_Deliv_Plan" EntityType="ZSALES_DELIV_PLAN_CDS.Zsales_Deliv_PlanType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZVH_MGRP_DEC" EntityType="ZSALES_DELIV_PLAN_CDS.ZVH_MGRP_DECType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <AssociationSet Name="assoc_C763E8B83C9011EC3B18FB8CDBD69C7F" Association="ZSALES_DELIV_PLAN_CDS.assoc_C763E8B83C9011EC3B18FB8CDBD69C7F" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Zsales_Deliv_Plan" Role="FromRole_assoc_C763E8B83C9011EC3B18FB8CDBD69C7F"/>
+                    <End EntitySet="ZVH_MGRP_DEC" Role="ToRole_assoc_C763E8B83C9011EC3B18FB8CDBD69C7F"/>
+                </AssociationSet>
+            </EntityContainer>
+            <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <Annotations Target="ZSALES_DELIV_PLAN_CDS.Zsales_Deliv_PlanType/MATL_GROUP" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Value Help for Material Group and description"/>
+                        <PropertyValue Property="CollectionPath" String="ZVH_MGRP_DEC"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="MATL_GROUP"/>
+                                    <PropertyValue Property="ValueListProperty" String="matl_group"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="https://intadsgwd01.arjas.com:44300/sap/opu/odata/sap/ZSALES_DELIV_PLAN_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://intadsgwd01.arjas.com:44300/sap/opu/odata/sap/ZSALES_DELIV_PLAN_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,41 @@
+.cardShadow {
+    background-color: #ffffff;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+}
+
+.kpiHeader {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.kpiTitle {
+    font-size: 1.1rem;
+    padding: 0.3rem 0;
+}
+
+.kpiValues {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.4rem 1rem;
+    flex-wrap: wrap;
+}
+
+.kpiBox {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex: 1;
+    min-width: 280px;
+}
+
+.kpiLabel {
+    font-size: 0.9rem;
+    line-height: 1.2rem;
+}
+
+.kpiNumber {
+    font-size: 1rem;
+    line-height: 1.2rem;
+    padding-top: 0.1rem;
+}

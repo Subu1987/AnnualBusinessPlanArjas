@@ -1,0 +1,156 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common" />
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI" />
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication" />
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/sap/ZSALES_DELIV_PLAN_CDS/$metadata">
+        <edmx:Include Namespace="ZSALES_DELIV_PLAN_CDS" Alias="ZSALES_DELIV_PLAN_CDS" />
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="com.arjas.ZSALES_DELIV_PLAN_CDS">
+            <Annotations Target="ZSALES_DELIV_PLAN_CDS.Zsales_Deliv_PlanType/CALMONTH">
+                <Annotation Term="com.sap.vocabularies.Common.v1.Label" String="Calendar Month"/>
+            </Annotations>
+            <Annotations Target="ZSALES_DELIV_PLAN_CDS.Zsales_Deliv_PlanType/PREINV_QTY">
+                <Annotation Term="com.sap.vocabularies.Common.v1.Label" String="Last FY-Actual Qty"/>
+            </Annotations>
+            <Annotations Target="ZSALES_DELIV_PLAN_CDS.Zsales_Deliv_PlanType/CURR_MONTH_QTY">
+                <Annotation Term="com.sap.vocabularies.Common.v1.Label" String="Actual Quantity"/>
+            </Annotations>
+            <Annotations Target="ZSALES_DELIV_PLAN_CDS.Zsales_Deliv_PlanType/MONTH_PLAN_QTY">
+                <Annotation Term="com.sap.vocabularies.Common.v1.Label" String="Planned Qty"/>
+            </Annotations>
+            <Annotations Target="ZSALES_DELIV_PLAN_CDS.Zsales_Deliv_PlanType/MATL_GROUP"
+                xmlns="http://docs.oasis-open.org/odata/ns/edm"
+                xmlns:com.sap.vocabularies.Common.v1="com.sap.vocabularies.Common.v1">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Material Group"/>
+                        <PropertyValue Property="CollectionPath" String="ZVH_MGRP_DEC"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="MATL_GROUP" />
+                                    <PropertyValue Property="ValueListProperty" String="matl_group" />
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="txtsh" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.Text" Path="MGRP_desc"/>
+            </Annotations>
+            <Annotations Target="ZSALES_DELIV_PLAN_CDS.Zsales_Deliv_PlanType">
+                <Annotation Term="com.sap.vocabularies.UI.v1.PresentationVariant">
+					<Record>
+						<PropertyValue Property="Visualizations">
+							<Collection>
+								<AnnotationPath>@com.sap.vocabularies.UI.v1.Chart</AnnotationPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="SortOrder">
+							<Collection>
+								<Record>
+									<PropertyValue Property="Property">
+										<PropertyPath>CALMONTH</PropertyPath>
+									</PropertyValue>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="com.sap.vocabularies.UI.v1.Chart">
+					<Record>
+						<PropertyValue Property="ChartType"
+							EnumMember="com.sap.vocabularies.UI.v1.ChartType/Column" />
+						<PropertyValue Property="Dimensions">
+							<Collection>
+								<PropertyPath>CALMONTH</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="Measures">
+							<Collection>
+								<PropertyPath>CURR_MONTH_QTY</PropertyPath>
+								<PropertyPath>PREINV_QTY</PropertyPath>
+                                <PropertyPath>MONTH_PLAN_QTY</PropertyPath>
+							</Collection>
+						</PropertyValue>
+                        <PropertyValue Property="MeasureAttributes">
+                            <Collection>
+                                <!-- Show INV_QTY as Column (Axis1) -->
+                                <Record>
+                                    <PropertyValue Property="Measure" PropertyPath="CURR_MONTH_QTY" />
+                                    <PropertyValue Property="Role" EnumMember="com.sap.vocabularies.UI.v1.ChartMeasureRoleType/Axis1" />
+                                </Record>
+
+                                <!-- Show PREINV_QTY as Column (Axis1) -->
+                                <Record>
+                                    <PropertyValue Property="Measure" PropertyPath="PREINV_QTY" />
+                                    <PropertyValue Property="Role" EnumMember="com.sap.vocabularies.UI.v1.ChartMeasureRoleType/Axis1" />
+                                </Record>
+
+                                <!-- Show PLAN_QTY as Line (Axis2) -->
+                                <Record>
+                                    <PropertyValue Property="Measure" PropertyPath="MONTH_PLAN_QTY" />
+                                    <PropertyValue Property="Role" EnumMember="com.sap.vocabularies.UI.v1.ChartMeasureRoleType/Axis1" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+					</Record>
+				</Annotation>
+            <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>CALMONTH</PropertyPath>
+                        <PropertyPath>MATL_GROUP</PropertyPath>
+                    </Collection>
+                </Annotation>
+              <!--  <Annotation Term="UI.Chart">
+                    <Record Type="UI.ChartDefinitionType">
+                        <PropertyValue Property="ChartType" EnumMember="UI.ChartType/Column" />
+                        <PropertyValue Property="Title" String="Sales Data By Month" />
+                        <PropertyValue Property="Description" String="Sales data per month" />
+                        <PropertyValue Property="MeasureAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartMeasureAttributeType">
+                                    <PropertyValue Property="Measure" PropertyPath="CmlOrQty" />
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1" />
+                                </Record>
+                                <Record Type="UI.ChartMeasureAttributeType">
+                                    <PropertyValue Property="Measure" PropertyPath="PreCmlOrQty" />
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Measures">
+                            <Collection>
+                                <PropertyPath>CmlOrQty</PropertyPath>
+                                <PropertyPath>PreCmlOrQty</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="DimensionAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartDimensionAttributeType">
+                                    <PropertyValue Property="Dimension" PropertyPath="Calmonth" />
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Dimensions">
+                            <Collection>
+                                <PropertyPath>Calmonth</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation> -->
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

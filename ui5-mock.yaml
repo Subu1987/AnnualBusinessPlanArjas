@@ -1,0 +1,46 @@
+# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
+
+specVersion: "3.1"
+metadata:
+  name: com.arjas.zsdannual
+type: application
+
+server:
+  customMiddleware:
+    - name: fiori-tools-proxy
+      afterMiddleware: compression
+      configuration:
+        ignoreCertError: false
+        ui5:
+          path:
+            - /resources
+            - /test-resources
+          url: https://ui5.sap.com
+
+    - name: fiori-tools-appreload
+      afterMiddleware: compression
+      configuration:
+        port: 35729
+        path: webapp
+        delay: 300
+
+    - name: fiori-tools-preview
+      afterMiddleware: fiori-tools-appreload
+      configuration:
+        flp:
+          theme: sap_fiori_3
+
+    - name: sap-fe-mockserver
+      beforeMiddleware: csp
+      configuration:
+        mountPath: /
+        services:
+          - urlPath: /sap/opu/odata/sap/ZVH_MGRP_DEC_CDS
+            metadataPath: ./webapp/localService/ZVH_MGRP_DEC_CDS/metadata.xml
+            mockdataPath: ./webapp/localService/ZVH_MGRP_DEC_CDS/data
+            generateMockData: true
+          - urlPath: /sap/opu/odata/sap/ZSALES_DELIV_PLAN_CDS
+            metadataPath: ./webapp/localService/ZSALES_DELIV_PLAN_CDS/metadata.xml
+            mockdataPath: ./webapp/localService/ZSALES_DELIV_PLAN_CDS/data
+            generateMockData: true
+        annotations: []

@@ -1,0 +1,125 @@
+<mvc:View
+    controllerName="com.arjas.zsdannual.controller.ChartView"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    displayBlock="true"
+>
+    <!-- Main Scroll Container -->
+    <ScrollContainer
+        id="mainScroll"
+        width="100%"
+        height="100vh"
+        horizontal="true"
+        vertical="true"
+        focusable="true"
+        class="sapUiSizeCompact"
+    >
+        <VBox
+            class="sapUiMediumMargin sapUiNoContentPadding"
+            width="100%"
+        >
+            <!-- Smart Filter Bar -->
+            <smartFilterBar:SmartFilterBar
+                id="smartFilterBar"
+                entitySet="Zsales_Deliv_Plan"
+                persistencyKey="SmartFilterBarKey"
+                useDateRangeType="true"
+                enableBasicSearch="false"
+                showMessages="true"
+                search=".onSearch"
+                class="sapUiSmallMarginBottom"
+            />
+
+            <!-- KPI Section -->
+            <VBox
+                class="sapUiTinyMarginBottom cardShadow"
+                width="100%"
+            >
+                <!-- Top Row: Title -->
+                <HBox
+                    alignItems="Center"
+                    justifyContent="SpaceBetween"
+                    class="sapUiTinyPadding kpiHeader"
+                >
+                    <Text
+                        text="Annual Business Plan"
+                        design="Bold"
+                        class="sapUiTinyMarginBegin kpiTitle"
+                    />
+                </HBox>
+
+                <!-- Bottom Row: KPI Values -->
+                <HBox
+                    alignItems="Center"
+                    justifyContent="SpaceBetween"
+                    class="sapUiTinyPadding kpiValues"
+                >
+                    <!-- KPI 1 -->
+                    <HBox
+                        alignItems="Center"
+                        class="sapUiTinyMarginEnd kpiBox"
+                        width="48%"
+                    >
+                        <Label
+                            text="Current Year Quantity (MT):"
+                            design="Bold"
+                            class="sapUiTinyMarginEnd kpiLabel"
+                        />
+                        <ObjectNumber
+                            id="totalQuantity"
+                            number="{
+                    path: 'kpiModel>/currentYearQty',
+                    type: 'sap.ui.model.type.Float',
+                    formatOptions: { minFractionDigits: 2, maxFractionDigits: 2 }
+                }"
+                            emphasized="true"
+                            state="Warning"
+                            class="kpiNumber"
+                        />
+                    </HBox>
+
+                    <!-- KPI 2 -->
+                    <HBox
+                        alignItems="Center"
+                        class="kpiBox"
+                        width="48%"
+                    >
+                        <Label
+                            text="Previous Year Quantity (MT):"
+                            design="Bold"
+                            class="sapUiTinyMarginEnd kpiLabel"
+                        />
+                        <ObjectNumber
+                            id="actualQuantity"
+                            number="{
+                    path: 'kpiModel>/previousYearQty',
+                    type: 'sap.ui.model.type.Float',
+                    formatOptions: { minFractionDigits: 2, maxFractionDigits: 2 }
+                }"
+                            emphasized="true"
+                            state="Success"
+                            class="kpiNumber"
+                        />
+                    </HBox>
+                </HBox>
+            </VBox>
+
+            <!-- Chart Tabs -->
+            <VBox
+                class="sapUiNoContentPadding sapUiSmallMarginTop"
+                width="100%"
+            >
+                <IconTabBar
+                    id="iconTabBar"
+                    expandable="false"
+                    select=".onTabSelect"
+                    applyContentPadding="false"
+                    class="sapUiNoContentPadding"
+                    stretchContentHeight="true"
+                />
+            </VBox>
+        </VBox>
+    </ScrollContainer>
+</mvc:View>
