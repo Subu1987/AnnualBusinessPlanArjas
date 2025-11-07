@@ -7,7 +7,7 @@ sap.ui.define([
 
 	Opa5.extendConfig({
 		arrangements: new Startup(),
-		viewNamespace: "com.arjas.zsdannual.view.",
+		viewNamespace: "com.arjas.ZSDAnnualSales.view.",
 		autoWait: true
 	});
 });

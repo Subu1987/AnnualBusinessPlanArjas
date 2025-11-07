@@ -1,5 +1,5 @@
 sap.ui.define([
-	"com/arjas/zsdannual/test/unit/controller/ChartView.controller"
+	"com/arjas/ZSDAnnualSales/test/unit/controller/ChartView.controller"
 ], function () {
 	"use strict";
 });

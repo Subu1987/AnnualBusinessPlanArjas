@@ -1,139 +1,145 @@
 {
-  "_version": "1.17.0",
-  "sap.app": {
-    "id": "com.arjas.zsdannual",
-    "type": "application",
-    "i18n": "i18n/i18n.properties",
-    "applicationVersion": {
-      "version": "0.0.1"
-    },
-    "title": "{{appTitle}}",
-    "description": "{{appDescription}}",
-    "resources": "resources.json",
-    "sourceTemplate": {
-      "id": "@sap/generator-fiori:basic",
-      "version": "1.17.6",
-      "toolsId": "2a9af17d-d051-4df5-8ad2-3d472b7a251d"
-    },
-    "dataSources": {
-      "localAnnotations": {
-        "type": "ODataAnnotation",
-        "uri": "annotations/annotation.xml",
-        "settings": {
-          "localUri": "annotations/annotation.xml"
-        }
-      },
-      "ZVH_MGRP_DEC_CDS": {
-        "uri": "/sap/opu/odata/sap/ZVH_MGRP_DEC_CDS/",
-        "type": "OData",
-        "settings": {
-          "annotations": [],
-          "localUri": "localService/ZVH_MGRP_DEC_CDS/metadata.xml",
-          "odataVersion": "2.0"
-        }
-      },
-      "mainService": {
-        "uri": "/sap/opu/odata/sap/ZSALES_DELIV_PLAN_CDS/",
-        "type": "OData",
-        "settings": {
-          "annotations": [
-            "localAnnotations",
-            "ZVH_MGRP_DEC_CDS"
-          ],
-          "localUri": "localService/mainService/metadata.xml",
-          "odataVersion": "2.0"
-        }
-      }
-    }
-  },
-  "sap.ui": {
-    "technology": "UI5",
-    "icons": {
-      "icon": "",
-      "favIcon": "",
-      "phone": "",
-      "phone@2": "",
-      "tablet": "",
-      "tablet@2": ""
-    },
-    "deviceTypes": {
-      "desktop": true,
-      "tablet": true,
-      "phone": true
-    }
-  },
-  "sap.ui5": {
-    "flexEnabled": true,
-    "dependencies": {
-      "minUI5Version": "1.71.70",
-      "libs": {
-        "sap.m": {},
-        "sap.ui.core": {}
-      }
-    },
-    "contentDensities": {
-      "compact": true,
-      "cozy": true
-    },
-    "models": {
-      "i18n": {
-        "type": "sap.ui.model.resource.ResourceModel",
-        "settings": {
-          "bundleName": "com.arjas.zsdannual.i18n.i18n"
-        }
-      },
-      "ZVH_MGRP_DEC_CDS": {
-        "dataSource": "ZVH_MGRP_DEC_CDS",
-        "preload": true,
-        "settings": {}
-      },
-      "": {
-        "dataSource": "mainService",
-        "preload": true,
-        "settings": {}
-      }
-    },
-    "resources": {
-      "css": [
-        {
-          "uri": "css/style.css"
-        }
-      ]
-    },
-    "routing": {
-      "config": {
-        "routerClass": "sap.m.routing.Router",
-        "viewType": "XML",
-        "async": true,
-        "viewPath": "com.arjas.zsdannual.view",
-        "controlAggregation": "pages",
-        "controlId": "app",
-        "clearControlAggregation": false
-      },
-      "routes": [
-        {
-          "name": "ChartView",
-          "pattern": "",
-          "target": [
-            "ChartView"
-          ]
-        }
-      ],
-      "targets": {
-        "ChartView": {
-          "viewType": "XML",
-          "transition": "slide",
-          "clearControlAggregation": false,
-          "viewId": "ChartView",
-          "viewName": "ChartView"
-        }
-      }
-    },
-    "rootView": {
-      "viewName": "com.arjas.zsdannual.view.App",
-      "type": "XML",
-      "async": true,
-      "id": "App"
-    }
-  }
+	"_version": "1.17.0",
+	"sap.app": {
+		"id": "com.arjas.ZSDAnnualSales",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "0.0.1"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"resources": "resources.json",
+		"sourceTemplate": {
+			"id": "@sap/generator-fiori:basic",
+			"version": "1.17.6",
+			"toolsId": "2a9af17d-d051-4df5-8ad2-3d472b7a251d"
+		},
+		"dataSources": {
+			"localAnnotations": {
+				"type": "ODataAnnotation",
+				"uri": "annotations/annotation.xml",
+				"settings": {
+					"localUri": "annotations/annotation.xml"
+				}
+			},
+			"ZVH_MGRP_DEC_CDS": {
+				"uri": "/sap/opu/odata/sap/ZVH_MGRP_DEC_CDS/",
+				"type": "OData",
+				"settings": {
+					"annotations": [],
+					"localUri": "localService/ZVH_MGRP_DEC_CDS/metadata.xml",
+					"odataVersion": "2.0"
+				}
+			},
+			"mainService": {
+				"uri": "/sap/opu/odata/sap/ZSALES_DELIV_PLAN_CDS/",
+				"type": "OData",
+				"settings": {
+					"annotations": [
+						"localAnnotations",
+						"ZVH_MGRP_DEC_CDS"
+					],
+					"localUri": "localService/mainService/metadata.xml",
+					"odataVersion": "2.0"
+				}
+			}
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+	"sap.ui5": {
+		"flexEnabled": true,
+		"dependencies": {
+			"minUI5Version": "1.71.70",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {},
+				"sap.viz": {},
+				"sap.suite.ui.commons": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "com.arjas.ZSDAnnualSales.i18n.i18n"
+				}
+			},
+			"ZVH_MGRP_DEC_CDS": {
+				"dataSource": "ZVH_MGRP_DEC_CDS",
+				"preload": true,
+				"settings": {}
+			},
+			"": {
+				"dataSource": "mainService",
+				"preload": true,
+				"settings": {}
+			}
+		},
+		"resources": {
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"async": true,
+				"viewPath": "com.arjas.ZSDAnnualSales.view",
+				"controlAggregation": "pages",
+				"controlId": "app",
+				"clearControlAggregation": false
+			},
+			"routes": [
+				{
+					"name": "ChartView",
+					"pattern": "",
+					"target": [
+						"ChartView"
+					]
+				}
+			],
+			"targets": {
+				"ChartView": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "ChartView",
+					"viewName": "ChartView"
+				}
+			}
+		},
+		"rootView": {
+			"viewName": "com.arjas.ZSDAnnualSales.view.App",
+			"type": "XML",
+			"async": true,
+			"id": "App"
+		}
+	},
+	"sap.platform.abap": {
+		"uri": "/sap/bc/ui5_ui5/sap/zsdannualsales/webapp",
+		"_version": "1.1.0"
+	}
 }

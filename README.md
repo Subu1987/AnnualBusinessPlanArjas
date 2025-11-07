@@ -8,7 +8,7 @@
 |**Template Used**<br>Basic V2|
 |**Service Type**<br>SAP System (ABAP On Premise)|
 |**Service URL**<br>https://intadsgwd01.arjas.com:44300/sap/opu/odata/sap/ZSALES_DELIV_FIORI_CDS|
-|**Module Name**<br>zsdannual|
+|**Module Name**<br>ZSDAnnualSales|
 |**Application Title**<br>Sales Dashboard(Annual Business Plan Data)|
 |**Namespace**<br>com.arjas|
 |**UI5 Theme**<br>sap_fiori_3|
@@ -17,7 +17,7 @@
 |**Enable TypeScript**<br>False|
 |**Add Eslint configuration**<br>False|
 
-## zsdannual
+## ZSDAnnualSales
 
 Sales Dashboard(Annual Business Plan Data)
 
@@ -38,5 +38,3 @@ Sales Dashboard(Annual Business Plan Data)
 #### Pre-requisites:
 
 1. Active NodeJS LTS (Long Term Support) version and associated supported NPM version.  (See https://nodejs.org)
-
-

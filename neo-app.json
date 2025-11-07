@@ -1,0 +1,53 @@
+{
+  "welcomeFile": "/webapp/index.html",
+  "sendWelcomeFileRedirect": true,
+  "routes": [
+    {
+      "path": "/resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "entryPath": "/resources",
+        "version": "1.71.76"
+      },
+      "description": "SAPUI5 resources"
+    },
+    {
+      "path": "/test-resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "entryPath": "/test-resources",
+        "version": "1.71.76"
+      },
+      "description": "SAPUI5 test resources"
+    },
+    {
+      "path": "/sap/opu/odata",
+      "target": {
+        "type": "destination",
+        "name": "BID",
+        "entryPath": "/sap/opu/odata"
+      },
+      "description": "OData service route to backend system (BID)"
+    },
+    {
+      "path": "/sap/bc/ui5_ui5",
+      "target": {
+        "type": "destination",
+        "name": "BID",
+        "entryPath": "/sap/bc/ui5_ui5"
+      },
+      "description": "UI5 repository resources route"
+    },
+    {
+      "path": "/sap/public/bc/ui5_ui5",
+      "target": {
+        "type": "destination",
+        "name": "BID",
+        "entryPath": "/sap/public/bc/ui5_ui5"
+      },
+      "description": "Public UI5 resources route"
+    }
+  ]
+}

@@ -5,7 +5,7 @@ sap.ui.getCore().attachInit(function () {
 	"use strict";
 
 	sap.ui.require([
-		"com/arjas/zsdannual/test/unit/AllTests"
+		"com/arjas/ZSDAnnualSales/test/unit/AllTests"
 	], function () {
 		QUnit.start();
 	});

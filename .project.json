@@ -1,0 +1,13 @@
+{
+  "mockpreview": {
+    "mockUri": "/sap/opu/odata/sap/ZSALES_DELIV_PLAN_CDS/",
+    "metadataFilePath": "localService/mainService/metadata.xml",
+    "mockRequestsFilePath": "",
+    "loadJSONFiles": false,
+    "loadCustomRequests": false
+  },
+  "deploy": {
+    "destination": "GWD",
+    "name": "ZSDANNUALSALES"
+  }
+}

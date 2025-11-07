@@ -39,3 +39,26 @@
     line-height: 1.2rem;
     padding-top: 0.1rem;
 }
+.sapSuiteUiCommonsChartContainer {
+  background-color: #fafafa;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.sapMTable {
+  margin-top: 0.5rem;
+}
+
+.chartContainer {
+  min-height: 600px; /* enough to show chart axis */
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+.chartContentBox {
+  padding-bottom: 3rem !important; /* adds bottom breathing room for X-axis */
+}
+.sapMSegBBtn .sapMSegBBtnInner {
+  padding: 0 0.25rem;
+}
+

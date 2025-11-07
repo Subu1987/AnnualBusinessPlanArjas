@@ -5,12 +5,12 @@
 sap.ui.define([
         "sap/ui/core/UIComponent",
         "sap/ui/Device",
-        "com/arjas/zsdannual/model/models"
+        "com/arjas/ZSDAnnualSales/model/models"
     ],
     function (UIComponent, Device, models) {
         "use strict";
 
-        return UIComponent.extend("com.arjas.zsdannual.Component", {
+        return UIComponent.extend("com.arjas.ZSDAnnualSales.Component", {
             metadata: {
                 manifest: "json"
             },

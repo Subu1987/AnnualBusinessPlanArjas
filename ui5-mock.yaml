@@ -2,7 +2,7 @@
 
 specVersion: "3.1"
 metadata:
-  name: com.arjas.zsdannual
+  name: com.arjas.ZSDAnnualSales
 type: application
 
 server:

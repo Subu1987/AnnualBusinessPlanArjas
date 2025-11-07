@@ -1,5 +1,5 @@
 <mvc:View
-    controllerName="com.arjas.zsdannual.controller.ChartView"
+    controllerName="com.arjas.ZSDAnnualSales.controller.ChartView"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     xmlns:l="sap.ui.layout"
@@ -110,6 +110,7 @@
             <VBox
                 class="sapUiNoContentPadding sapUiSmallMarginTop"
                 width="100%"
+                height="100%"
             >
                 <IconTabBar
                     id="iconTabBar"
