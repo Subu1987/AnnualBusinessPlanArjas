@@ -61,7 +61,7 @@ sap.ui.define([
 				},
 				success: function(oData) {
 					const mGroupDesc = {};
-					
+
 					console.log(oData);
 
 					// ✅ Map available descriptions from backend
@@ -88,8 +88,17 @@ sap.ui.define([
 					});
 
 					// Load first tab
+					// const sFirst = aAllowedGroups[0];
+					// const oFirstTab = that._oIconTabBar.getItems()[0];
+					// that._createChartForGroup(sFirst, oFirstTab);
+
 					const sFirst = aAllowedGroups[0];
 					const oFirstTab = that._oIconTabBar.getItems()[0];
+
+					// FIX: force UI5 to treat first tab as selected
+					that._oIconTabBar.setSelectedKey(sFirst);
+
+					// FIX: now load the correct content
 					that._createChartForGroup(sFirst, oFirstTab);
 
 					BusyIndicator.hide();
@@ -123,66 +132,66 @@ sap.ui.define([
 					oBusyDialog.close();
 
 					// ✅ Handle case when no data available
-                    if (!aData.length) {
-                        const oNoDataVBox = new sap.m.VBox({
-                            width: "100%",
-                            height: "400px",
-                            justifyContent: "Center",
-                            alignItems: "Center",
-                            items: [
-                                new sap.m.FlexBox({
-                                    direction: "Column",
-                                    alignItems: "Center",
-                                    justifyContent: "Center",
-                                    items: [
-                                        new sap.ui.core.Icon({
-                                            src: "sap-icon://database",
-                                            size: "4rem",
-                                            color: "#6a6d70"
-                                        }),
-                                        new sap.m.Text({
-                                            text: "No Data Available",
-                                            design: "Bold",
-                                            textAlign: "Center",
-                                            class: "sapUiTinyMarginTop"
-                                        }),
-                                        new sap.m.Text({
-                                            text: `No records found for Material Group ${sGroup}.`,
-                                            textAlign: "Center",
-                                            class: "sapUiTinyMarginTop"
-                                        }),
-                                        new sap.m.Button({
-                                            text: "Try Again",
-                                            icon: "sap-icon://refresh",
-                                            type: "Emphasized",
-                                            press: function () {
-                                                that._createChartForGroup(sGroup, oTab);
-                                            },
-                                            class: "sapUiTinyMarginTop"
-                                        })
-                                    ]
-                                })
-                            ]
-                        });
+					if (!aData.length) {
+						const oNoDataVBox = new sap.m.VBox({
+							width: "100%",
+							height: "400px",
+							justifyContent: "Center",
+							alignItems: "Center",
+							items: [
+								new sap.m.FlexBox({
+									direction: "Column",
+									alignItems: "Center",
+									justifyContent: "Center",
+									items: [
+										new sap.ui.core.Icon({
+											src: "sap-icon://database",
+											size: "4rem",
+											color: "#6a6d70"
+										}),
+										new sap.m.Text({
+											text: "No Data Available",
+											design: "Bold",
+											textAlign: "Center",
+											class: "sapUiTinyMarginTop"
+										}),
+										new sap.m.Text({
+											text: `No records found for Material Group ${sGroup}.`,
+											textAlign: "Center",
+											class: "sapUiTinyMarginTop"
+										}),
+										new sap.m.Button({
+											text: "Try Again",
+											icon: "sap-icon://refresh",
+											type: "Emphasized",
+											press: function() {
+												that._createChartForGroup(sGroup, oTab);
+											},
+											class: "sapUiTinyMarginTop"
+										})
+									]
+								})
+							]
+						});
 
-                        const oNoDataPanel = new sap.m.Panel({
-                            backgroundDesign: "Transparent",
-                            content: [oNoDataVBox],
-                            customData: [
-                                new sap.ui.core.CustomData({
-                                    key: "style",
-                                    value: "background: linear-gradient(180deg, #f9f9f9 0%, #f0f0f0 100%); border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);"
-                                })
-                            ]
-                        });
+						const oNoDataPanel = new sap.m.Panel({
+							backgroundDesign: "Transparent",
+							content: [oNoDataVBox],
+							customData: [
+								new sap.ui.core.CustomData({
+									key: "style",
+									value: "background: linear-gradient(180deg, #f9f9f9 0%, #f0f0f0 100%); border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);"
+								})
+							]
+						});
 
-                        oTab.removeAllContent();
-                        oTab.addContent(oNoDataPanel);
-                        return;
-                    }
+						oTab.removeAllContent();
+						oTab.addContent(oNoDataPanel);
+						return;
+					}
 
 					// KPI update
-					const totalQuantity = aData.reduce((sum, r) => sum + (r.ABP_PRD_QTY || 0), 0);
+					const totalQuantity = aData.reduce((sum, r) => sum + (r.ABP_SALES_QTY || 0), 0);
 					const actualQuantity = aData.reduce((sum, r) => sum + (r.PREINV_QTY || 0), 0);
 
 					const oTotal = that.byId("totalQuantity");
@@ -235,10 +244,10 @@ sap.ui.define([
 						}],
 						measures: [{
 							name: "Annual Plan",
-							value: "{ABP_PRD_QTY}"
+							value: "{ABP_SALES_QTY}"
 						}, {
 							name: "Monthly Plan",
-							value: "{MONTH_PLAN_QTY}"
+							value: "{MBP_QTY}"
 						}, {
 							name: "Prev. Year Same Month",
 							value: "{PREINV_QTY}"
@@ -311,10 +320,10 @@ sap.ui.define([
 								text: "{CALMONTH}"
 							}),
 							new sap.m.Text({
-								text: "{ABP_PRD_QTY}"
+								text: "{ABP_SALES_QTY}"
 							}),
 							new sap.m.Text({
-								text: "{MONTH_PLAN_QTY}"
+								text: "{MBP_QTY}"
 							}),
 							new sap.m.Text({
 								text: "{PREINV_QTY}"
@@ -414,14 +423,14 @@ sap.ui.define([
 				that._oModel.read("/Zsales_Deliv_Plan", {
 					filters: aFilters,
 					urlParameters: {
-						$select: "CALMONTH,ABP_PRD_QTY,MONTH_PLAN_QTY,PREINV_QTY,CURR_MONTH_QTY,MATL_GROUP",
+						$select: "CALMONTH,ABP_SALES_QTY,MBP_QTY,PREINV_QTY,CURR_MONTH_QTY,MATL_GROUP",
 						$orderby: "CALMONTH"
 					},
 					success: function(oData) {
 						const results = oData.results.map(row => ({
 							CALMONTH: row.CALMONTH,
-							ABP_PRD_QTY: +row.ABP_PRD_QTY || 0,
-							MONTH_PLAN_QTY: +row.MONTH_PLAN_QTY || 0,
+							ABP_SALES_QTY: +row.ABP_SALES_QTY || 0,
+							MBP_QTY: +row.MBP_QTY || 0,
 							PREINV_QTY: +row.PREINV_QTY || 0,
 							CURR_MONTH_QTY: +row.CURR_MONTH_QTY || 0
 						}));

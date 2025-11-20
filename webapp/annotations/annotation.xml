@@ -37,7 +37,7 @@
                 <Annotation Term="com.sap.vocabularies.Common.v1.Label" String="Current Month Actual" />
             </Annotations>
 
-            <Annotations Target="ZSALES_DELIV_PLAN_CDS.Zsales_Deliv_PlanType/MONTH_PLAN_QTY">
+            <Annotations Target="ZSALES_DELIV_PLAN_CDS.Zsales_Deliv_PlanType/MBP_QTY">
                 <Annotation Term="com.sap.vocabularies.Common.v1.Label" String="Planned Quantity" />
             </Annotations>
 
@@ -96,7 +96,7 @@
                             <Collection>
                                 <PropertyPath>CURR_MONTH_QTY</PropertyPath>
                                 <PropertyPath>PREINV_QTY</PropertyPath>
-                                <PropertyPath>MONTH_PLAN_QTY</PropertyPath>
+                                <PropertyPath>MBP_QTY</PropertyPath>
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="MeasureAttributes">
@@ -110,7 +110,7 @@
                                     <PropertyValue Property="Role" EnumMember="com.sap.vocabularies.UI.v1.ChartMeasureRoleType/Axis1" />
                                 </Record>
                                 <Record>
-                                    <PropertyValue Property="Measure" PropertyPath="MONTH_PLAN_QTY" />
+                                    <PropertyValue Property="Measure" PropertyPath="MBP_QTY" />
                                     <PropertyValue Property="Role" EnumMember="com.sap.vocabularies.UI.v1.ChartMeasureRoleType/Axis1" />
                                 </Record>
                             </Collection>

@@ -14,7 +14,7 @@
                 <Property Name="MATL_GROUP" Type="Edm.String" MaxLength="9" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:label="Material group" sap:value-list="standard"/>
                 <Property Name="CURR_MONTH_QTY" Type="Edm.Decimal" Precision="17" Scale="3" sap:aggregation-role="measure" sap:unit="SALES_UNIT" sap:filterable="false"/>
                 <Property Name="PREINV_QTY" Type="Edm.Decimal" Precision="17" Scale="3" sap:aggregation-role="measure" sap:unit="SALES_UNIT" sap:filterable="false"/>
-                <Property Name="MONTH_PLAN_QTY" Type="Edm.Decimal" Precision="17" Scale="3" sap:aggregation-role="measure" sap:unit="SALES_UNIT" sap:filterable="false"/>
+                <Property Name="MONTH_PLAN_QTY " Type="Edm.Decimal" Precision="17" Scale="3" sap:aggregation-role="measure" sap:unit="SALES_UNIT" sap:filterable="false"/>
                 <Property Name="SALES_UNIT" Type="Edm.String" MaxLength="3" sap:aggregation-role="dimension" sap:label="Sales unit" sap:semantics="unit-of-measure"/>
                 <NavigationProperty Name="to_MGRPDESC" Relationship="ZSALES_DELIV_PLAN_CDS.assoc_C763E8B83C9011EC3B18FB8CDBD69C7F" FromRole="FromRole_assoc_C763E8B83C9011EC3B18FB8CDBD69C7F" ToRole="ToRole_assoc_C763E8B83C9011EC3B18FB8CDBD69C7F"/>
             </EntityType>
