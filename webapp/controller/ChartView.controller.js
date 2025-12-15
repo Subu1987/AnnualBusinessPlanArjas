@@ -18,7 +18,7 @@ sap.ui.define([
 			this._oModel = this.getOwnerComponent().getModel();
 			this._oIconTabBar = this.byId("iconTabBar");
 			this._oSmartFilterBar = this.byId("smartFilterBar");
-			
+
 			this._bWarningShown = false;
 
 			const that = this;
@@ -43,7 +43,7 @@ sap.ui.define([
 			// if (oTab && !oTab.getContent().length) {
 			// 	this._createChartForGroup(sKey, oTab);
 			// }
-			
+
 			this._bWarningShown = false; // ← reset warning for new tab
 
 			var sKey = oEvent.getParameter("key");
@@ -152,9 +152,9 @@ sap.ui.define([
 					// later renderComplete will be a no-op.
 					// NOTE: keep original behavior: close immediately here
 					oBusyDialog.close();
-					
+
 					var missing = [];
-					
+
 					if (missing.length > 0) {
 						if (!that._bWarningShown) {
 							that._bWarningShown = true; // prevent second popup
@@ -164,9 +164,20 @@ sap.ui.define([
 						}
 					}
 
-
 					// ✅ Handle case when no data available
 					if (!aData.length) {
+
+						// ✅ RESET KPI VALUES
+						const oTotal = that.byId("totalQuantity");
+						const oActual = that.byId("actualQuantity");
+
+						if (oTotal) {
+							oTotal.setNumber("0.00");
+						}
+						if (oActual) {
+							oActual.setNumber("0.00");
+						}
+
 						const oNoDataVBox = new sap.m.VBox({
 							width: "100%",
 							height: "400px",
@@ -208,19 +219,19 @@ sap.ui.define([
 							]
 						});
 
-						const oNoDataPanel = new sap.m.Panel({
-							backgroundDesign: "Transparent",
-							content: [oNoDataVBox],
-							customData: [
-								new sap.ui.core.CustomData({
-									key: "style",
-									value: "background: linear-gradient(180deg, #f9f9f9 0%, #f0f0f0 100%); border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);"
-								})
-							]
-						});
+						// const oNoDataPanel = new sap.m.Panel({
+						// 	backgroundDesign: "Transparent",
+						// 	content: [oNoDataVBox],
+						// 	customData: [
+						// 		new sap.ui.core.CustomData({
+						// 			key: "style",
+						// 			value: "background: linear-gradient(180deg, #f9f9f9 0%, #f0f0f0 100%); border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);"
+						// 		})
+						// 	]
+						// });
 
 						oTab.removeAllContent();
-						oTab.addContent(oNoDataPanel);
+						oTab.addContent(oNoDataVBox);
 						return;
 					}
 
@@ -492,7 +503,7 @@ sap.ui.define([
 				}
 			}
 
-			if (oData.Company_Code && oData.Company_Code.ranges && oData.Company_Code.ranges.length > 0 ) {
+			if (oData.Company_Code && oData.Company_Code.ranges && oData.Company_Code.ranges.length > 0) {
 				const aCompCodeFilters = [];
 
 				oData.Company_Code.ranges.forEach(function(range) {
