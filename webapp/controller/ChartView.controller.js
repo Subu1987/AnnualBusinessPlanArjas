@@ -219,19 +219,19 @@ sap.ui.define([
 							]
 						});
 
-						// const oNoDataPanel = new sap.m.Panel({
-						// 	backgroundDesign: "Transparent",
-						// 	content: [oNoDataVBox],
-						// 	customData: [
-						// 		new sap.ui.core.CustomData({
-						// 			key: "style",
-						// 			value: "background: linear-gradient(180deg, #f9f9f9 0%, #f0f0f0 100%); border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);"
-						// 		})
-						// 	]
-						// });
+						const oNoDataPanel = new sap.m.Panel({
+							backgroundDesign: "Transparent",
+							content: [oNoDataVBox],
+							customData: [
+								new sap.ui.core.CustomData({
+									key: "style",
+									value: "background: linear-gradient(180deg, #f9f9f9 0%, #f0f0f0 100%); border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);"
+								})
+							]
+						});
 
 						oTab.removeAllContent();
-						oTab.addContent(oNoDataVBox);
+						oTab.addContent(oNoDataPanel);
 						return;
 					}
 
@@ -253,6 +253,12 @@ sap.ui.define([
 							applicationSet: "fiori"
 						}
 					});
+
+					// Add Popover
+					const oPopOver = new sap.viz.ui5.controls.Popover({
+						formatString: ["#,##0.00"]
+					});
+					oPopOver.connect(oViz.getVizUid());
 
 					oViz.setVizProperties({
 						title: {
@@ -435,7 +441,10 @@ sap.ui.define([
 							})
 						]
 					});*/
-
+					
+					// ✅ FIX: Clear previous tab content before adding new
+					oTab.removeAllContent();
+					
 					const oVBox = new sap.m.VBox({
 						items: [oChartContainer]
 
