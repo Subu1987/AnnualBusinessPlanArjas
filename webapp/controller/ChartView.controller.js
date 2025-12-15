@@ -18,6 +18,8 @@ sap.ui.define([
 			this._oModel = this.getOwnerComponent().getModel();
 			this._oIconTabBar = this.byId("iconTabBar");
 			this._oSmartFilterBar = this.byId("smartFilterBar");
+			
+			this._bWarningShown = false;
 
 			const that = this;
 			sap.ui.core.BusyIndicator.show(0);
@@ -31,13 +33,33 @@ sap.ui.define([
 		},
 
 		onSearch: function() {
+			this._bWarningShown = false; // ← reset so next warning can show
 			this._loadMaterialGroupsAndTabs();
 		},
 
 		onTabSelect: function(oEvent) {
-			const sKey = oEvent.getParameter("key");
-			const oTab = this._oIconTabBar.getItems().find(tab => tab.getKey() === sKey);
-			if (oTab && !oTab.getContent().length) {
+			// const sKey = oEvent.getParameter("key");
+			// const oTab = this._oIconTabBar.getItems().find(tab => tab.getKey() === sKey);
+			// if (oTab && !oTab.getContent().length) {
+			// 	this._createChartForGroup(sKey, oTab);
+			// }
+			
+			this._bWarningShown = false; // ← reset warning for new tab
+
+			var sKey = oEvent.getParameter("key");
+			var aItems = this._oIconTabBar.getItems();
+			var oTab = null;
+
+			for (var i = 0; i < aItems.length; i++) {
+				if (aItems[i].getKey() === sKey) {
+					oTab = aItems[i];
+					break;
+				}
+			}
+
+			if (oTab && oTab.getContent().length === 0) {
+				this._createChartForGroup(sKey, oTab);
+			} else {
 				this._createChartForGroup(sKey, oTab);
 			}
 		},
@@ -130,6 +152,18 @@ sap.ui.define([
 					// later renderComplete will be a no-op.
 					// NOTE: keep original behavior: close immediately here
 					oBusyDialog.close();
+					
+					var missing = [];
+					
+					if (missing.length > 0) {
+						if (!that._bWarningShown) {
+							that._bWarningShown = true; // prevent second popup
+							MessageBox.warning(
+								"No data found for plant(s): " + missing.join(", ")
+							);
+						}
+					}
+
 
 					// ✅ Handle case when no data available
 					if (!aData.length) {
@@ -417,13 +451,14 @@ sap.ui.define([
 		_readDataForChart: function(sGroup) {
 			const that = this;
 			return new Promise(function(resolve, reject) {
+
 				const aFilters = that._getSmartFilterBarFilters();
 				aFilters.push(new Filter("MATL_GROUP", FilterOperator.EQ, sGroup));
 
 				that._oModel.read("/Zsales_Deliv_Plan", {
 					filters: aFilters,
 					urlParameters: {
-						$select: "CALMONTH,ABP_SALES_QTY,MBP_QTY,PREINV_QTY,CURR_MONTH_QTY,MATL_GROUP",
+						$select: "CALMONTH,ABP_SALES_QTY,MBP_QTY,PREINV_QTY,CURR_MONTH_QTY,MATL_GROUP,Company_Code",
 						$orderby: "CALMONTH"
 					},
 					success: function(oData) {
@@ -454,6 +489,28 @@ sap.ui.define([
 					aFilters.push(new Filter("CALMONTH", FilterOperator.BT, r.value1, r.value2));
 				} else {
 					aFilters.push(new Filter("CALMONTH", FilterOperator.EQ, r.value1));
+				}
+			}
+
+			if (oData.Company_Code && oData.Company_Code.ranges && oData.Company_Code.ranges.length > 0 ) {
+				const aCompCodeFilters = [];
+
+				oData.Company_Code.ranges.forEach(function(range) {
+					if (range.value1) {
+						aCompCodeFilters.push(
+							new Filter("Company_Code", FilterOperator.EQ, range.value1)
+						);
+					}
+				});
+
+				if (aCompCodeFilters.length > 0) {
+					// OR condition
+					aFilters.push(
+						new Filter({
+							filters: aCompCodeFilters,
+							and: false
+						})
+					);
 				}
 			}
 
