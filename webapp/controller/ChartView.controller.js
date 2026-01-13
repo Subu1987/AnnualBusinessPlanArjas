@@ -72,7 +72,7 @@ sap.ui.define([
 			// ✅ Whitelisted Material Groups
 			const aAllowedGroups = [
 				"Z050", "Z051", "Z069", "Z070",
-				"Z072", "Z073", "Z074", "Z075",
+				"Z072", "Z073", "Z074", "Z075","Z076",
 				"Z077", "Z100", "Z101", "Z102"
 			];
 
