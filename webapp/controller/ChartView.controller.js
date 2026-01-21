@@ -16,6 +16,7 @@ sap.ui.define([
 	return Controller.extend("com.arjas.ZSDAnnualSales.controller.ChartView", {
 		onInit: function() {
 			this._oModel = this.getOwnerComponent().getModel();
+			this._oModelMaterial = this.getOwnerComponent().getModel("ZVH_MGRP_DEC_CDS");
 			this._oIconTabBar = this.byId("iconTabBar");
 			this._oSmartFilterBar = this.byId("smartFilterBar");
 
@@ -76,9 +77,9 @@ sap.ui.define([
 				"Z077", "Z100", "Z101", "Z102"
 			];
 
-			this._oModel.read("/Zsales_Deliv_Plan", {
+			this._oModel.read("/ZVH_MGRP_DEC", {
 				urlParameters: {
-					$select: "MATL_GROUP,MatlGroupDesc",
+					$select: "matl_group,txtsh",
 					$top: "1000"
 				},
 				success: function(oData) {
@@ -88,8 +89,8 @@ sap.ui.define([
 
 					// ✅ Map available descriptions from backend
 					oData.results.forEach(r => {
-						if (r.MATL_GROUP && aAllowedGroups.includes(r.MATL_GROUP)) {
-							mGroupDesc[r.MATL_GROUP] = r.MatlGroupDesc || "";
+						if (r.matl_group && aAllowedGroups.includes(r.matl_group)) {
+							mGroupDesc[r.matl_group] = r.txtsh || "";
 						}
 					});
 
